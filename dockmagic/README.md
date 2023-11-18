@@ -96,16 +96,18 @@ and decode the hex
 
 last line contains user emp
 
+```
 emp:x:1000:1000::/home/emp:/bin/bash
+```
 
 so there is an emp user which then must have a /home/emp homedir.
 
 Considering there is an ssh port open then this user hopefully has the standard private key installed in $HOME/.ssh/idrsa
 
 So generate a new output.png and create a new account.
-
+```
 python3 CVE-2022-44268/CVE-2022-44268.py /home/emp/.ssh/id_rsa
-
+```
 and we find the ssh key after decoding hex
 
 ```
