@@ -207,6 +207,15 @@ info found here and just follow the steps:
 
 https://0xdf.gitlab.io/2021/05/17/digging-into-cgroups.html
 
+We're basically mounting a cgroup and then creating the x dir in the dir /tmp/cgrp.
+Then cgroup populates the dir automatically with files.
+We want to write a 1 to notify_on_release first.
+Get the location of the directory that the host writes to when files are created inside the container.
+Write a reverse shell inside the container.
+Then write an echo command to /tmp/cgrp/x/cgroup.procs, the example writes the current proc $$.
+This gets released on the host and that triggers your shell!
+
+
 ```
 mkdir -p /tmp/cgrp && mount -t cgroup -o rdma cgroup /tmp/cgrp && mkdir /tmp/cgrp/x
 echo 1 > /tmp/cgrp/x/notify_on_release
