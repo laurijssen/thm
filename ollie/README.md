@@ -1,3 +1,5 @@
+
+```
 # nmap -sC -sV -sT -T4 -p- -vv -oN box 10.10.117.132
 PORT     STATE SERVICE REASON  VERSION
 22/tcp   open  ssh     syn-ack OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)
@@ -55,7 +57,7 @@ SF:\x20lover\x20of\x20deer\x20antlers\.\n\nWhat\x20is\x20your\x20name\?\x2
 ...
 
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
+```
 
 Try out port 1337, its a weird port
 
