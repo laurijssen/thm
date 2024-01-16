@@ -212,8 +212,8 @@ https://0xdf.gitlab.io/2021/05/17/digging-into-cgroups.html
 * We want to write a 1 to notify_on_release first.
 * Get the location of the directory that the host writes to when files are created inside the container.
 * Write a reverse shell inside the container.
-* Then write an echo command to /tmp/cgrp/x/cgroup.procs, the example writes the current proc $$.
-* This gets released on the host and that triggers your shell!
+* Then write an echo command to /tmp/cgrp/x/cgroup.procs, the example writes the current procid of the sh command ($$).
+* cgroups calls release agent for all procids in cgroup.procs. So that triggers your shell!
 
 
 ```
