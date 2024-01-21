@@ -250,6 +250,7 @@ this one works, replace port and IP
 ```
 
 So we are inside the container now, but there are no privesc techniques to explore. All the cgroup vulnerabilities do not work. mount -t cgroup gives permission denied. So no adding mounts and escaping to host this way.
+But when inside a container, mounts is *always* the way to go....
 
 ## Logging in over ssh
 
