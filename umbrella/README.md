@@ -234,10 +234,10 @@ MySQL [timetracking]> select * from users;
 +----------+----------------------------------+-------+
 ```
 
-2ac9cb7dc02b3c0083eb70898e549b63 = Password1
-0d107d09f5bbe40cade3de5c71e9e9b7 = letmein
-d5c0607301ad5d5c1528962a83992ac8 = sunshine1
-4a04890400b5d7bac101baace5d7e994 = sandwich
+2ac9cb7d.....083eb70898e549b63 = Pa...ord1
+0d107d09.....cade3de5c71e9e9b7 = le...in
+d5c06073.....1528962a83992ac8 = su...ine1
+4a048904.....c101baace5d7e994 = sa...ich
 
 /time endpoint executes eval on time argument without checking.
 
